@@ -16,6 +16,20 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//5.[Continua da App.tsx]
+//Aggiungiamo service di CORS
+builder.Services.AddCors(opt => 
+{
+    opt.AddPolicy("CorsPolicy", politica => {
+        //AllowAnyMethod: tutti i metodi HTTP
+        //  get, put, post, patch, delete...
+        //AllowAnyHeader: permettiamo tutti gli header che vengono con la request
+        //WithOrigins: deve corrispondere al posto da cui viene la request
+        //  nel nostro caso, la nostra applicazione React
+        politica.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +38,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//6. Dobbiamo aggiungere CORS prima dell'auth nella MW Pipeline
+//specifichiamo il nome della policy che abbiamo passato come parametro al pt 5.
+//  cioè "CorsPolicy"
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
