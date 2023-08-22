@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+//import seguente aggiunto manualmente, come indicato su https://react.semantic-ui.com/usage
+import 'semantic-ui-css/semantic.min.css'
+
+//questo c'era già; il file index.css si può usare per overridare i cambiamenti al CSS fatti da Semantic UI
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
