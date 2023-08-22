@@ -13,9 +13,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  //6.C togliamo la StrictMode (i.e. "<React.StrictMode> </React.StrictMode>" che avvolgeva "<App />") 
+  //                  perché non farebbe funzionare certi componenti di Semantic UI, come ad esempio i Buttons
     <App />
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
