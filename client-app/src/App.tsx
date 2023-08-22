@@ -14,7 +14,15 @@ function App() {
   //"useState()" ritorna: a) una variabile stateful, b) una funzione per aggiornarla
   // a) "activities" è una variabile in cui mettere le attività
   // b) "setActivities" è la funzione per *impostare* le attività (quando ci verranno ritornate dalla API) 
-  const [activities, setActivities] = useState();
+  //4.B
+  // aggiungiamo un parametro array vuoto "[]" a useState()
+  //    dandogli un valore iniziale
+  //    in modo che activities non possa essere "undefined",
+  //    il che ci risparmia degli error
+  //    dentro a <ul> {activities.map(activity =>(
+  //      in cui altrimenti avrebbe sottolineato activities e activity
+  //      perché sarebbero potuti essere undefined
+  const [activities, setActivities] = useState([]);
 
   //3.
   //"useEffect"
@@ -42,7 +50,37 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <ul></ul>
+        {/* 4. togliamo un po' di boilerplate
+        e aggiungiamo questo <ul> */}
+        <ul>
+          {/* 4. useremo la funzione ".map" di JavaScript 
+                  per loopare sulle activity
+                    che GET-iamo dalla API
+                  con una <li> per ognuna
+                    e ne visualizzeremo certe propr
+                 la funzione
+                 "vettore.map(elemento => funzione"
+                 esegue:
+                    - la funzione passata
+                    - su ogni elemento del vettore su cui è chiamata
+                    */}
+          {/* 4.C per evitare che ci sottolinei degli error 
+                    su ".id" 
+                    e su ".title"
+                  potremmo usare una interface
+                    ma noi siamo dei cani
+                  allora andiammo ad aggiungere
+                    ": any"
+                    in "{activities.map((activity: ANY) =>"
+                  però, in questo modo non siamo protetti da type safety
+                    perché siamo dei cani   
+              */}
+          {activities.map((activity: any) => (
+            <li key={activity.id}>
+              {activity.title}
+            </li>
+          ))}
+        </ul>
       </header>
     </div>
   );
